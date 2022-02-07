@@ -1,5 +1,6 @@
 const request = require('postman-request');
 const config = require('./config');
+const geocode = require('./utils/geocode')
 
 // request({ url: config.url }, (error, response) => {
 //     const data = JSON.parse(response.body);
@@ -12,13 +13,7 @@ const config = require('./config');
 //     }
 // });
 
-request({ url: config.mapbox_url }, (error, response) => {
-    const data = JSON.parse(response.body);
-    if(error) {
-        console.log("Unable to connect to location services");
-    } else if(data.features.length === 0) {
-        console.log("Unable to find location, Try again")
-    } else {
-        console.log('Longitude: '+data.features[0].center[0]+' Latitute: '+ data.features[0].center[1])
-    }
+geocode('Hyderabad', (error, data) => {
+    console.log('error', error)
+    console.log('data', data);
 })
