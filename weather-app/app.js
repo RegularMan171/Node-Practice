@@ -1,11 +1,7 @@
-console.log('Starting')
+const request = require('postman-request');
+const config = require('./config');
 
-setTimeout(() => {
-    console.log('2 Second Timer')
-}, 2000)
-
-setTimeout(() => {
-    console.log('0 Second Timer')
-}, 0)
-
-console.log('Stopping')
+request({ url: config.url }, (error, response) => {
+    const data = JSON.parse(response.body);
+    console.log(data.current);
+})
