@@ -1,19 +1,22 @@
-const request = require('postman-request');
 const config = require('./config');
-const geocode = require('./utils/geocode')
+const geocode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
 
-// request({ url: config.url }, (error, response) => {
-//     const data = JSON.parse(response.body);
-//     if(error) {
-//         console.log('Cannot connect to weather service');
-//     } else if (data.error) {
-//         console.log('could not find the location');
-//     } else {
-//         console.log(data.current.temperature, data.current.precip);
-//     }
-// });
+//console.log(process.argv)
+const address = process.argv[2];
 
-geocode('Hyderabad', (error, data) => {
-    console.log('error', error)
-    console.log('data', data);
-})
+if(!address) {
+    console.log("Please provide an address");
+} else {
+    geocode(address, (error, data) => {
+        if(error) {
+            return console.log(error)
+        }
+        forecast(data.latitude, data.longitude, (error, forecastData) => {
+            if(error) {
+                return console.log(error)
+            }
+            console.log(data.location, forecastData);
+        })
+    })
+}
