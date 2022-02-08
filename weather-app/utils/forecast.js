@@ -3,7 +3,7 @@ const config = require('../config');
 
 const forecast = (latitude, longitude, callback) => {
     const url = config.weatherStackUrl(latitude, longitude);
-    request({url: url, json: true}, (error, response) => {
+    request({url, json: true}, (error, response) => {
         if(error) {
             callback('cannot connect to weather service', undefined);
         } else if (response.body.error) {

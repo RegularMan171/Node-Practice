@@ -4,7 +4,7 @@ const config = require('../config');
 const geocode = (address, callback) => {
     const url = config.mapboxUrl(encodeURIComponent(address));
 
-    request({url: url, json: true }, (error, response) => {
+    request({url, json: true }, (error, response) => {
         if(error) {
             callback('Unable to connect to location services', undefined);
         } else if (response.body.features.length===0) {
