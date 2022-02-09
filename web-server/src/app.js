@@ -8,7 +8,7 @@ const app = express();
 const publicDirectoryPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
-console.log(partialsPath)
+console.log(partialsPath);
 
 //setup handlebars engine and views location
 app.set('views', viewsPath);
@@ -16,34 +16,50 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(partialsPath);
 
 //static directory to serve
-app.use(express.static(publicDirectoryPath))
+app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather App',
         name: "Name"
     });
-})
+});
 
 app.get('/about', (req, res) => {
     res.render('about', {
         title: "About me",
         name: "Not my name"
     });
-})
+});
 
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help',
         helpMessage: "Help is coming"
-    })
-})
+    });
+});
 
 app.get('/weather', (req, res) => {
     res.send([{
         forecast: "It's Sunny",
         location: "Hyderabad"
-    }])
+    }]);
+});
+
+app.get('/help/*', (req, res) => {
+    res.render('notfound', {
+        title: '404',
+        name:'Help Error Person',
+        errorMessage: 'Help article not found'
+    })
+});
+
+app.get('*', (req, res) => {
+    res.render('notfound', {
+        title: '404',
+        name: 'Error Person',
+        errorMessage: 'Page not found'
+    });
 });
 
 
