@@ -50,7 +50,7 @@ app.get('/help/*', (req, res) => {
         title: '404',
         name:'Help Error Person',
         errorMessage: 'Help article not found'
-    })
+    });
 });
 
 app.get('*', (req, res) => {
